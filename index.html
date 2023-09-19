@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>AGOL Web Map</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="UW-Madison Geog 576 Lab 2" />
+
+  
+  <!-- callls for the arcgis api's CSS file and JS library -->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.25/"></script>
+  
+  <!-- adding the modules needed for a full screen map app -->
+  <script>  
+    require([
+      "esri/config", 
+      "esri/Map", 
+      "esri/views/MapView", 
+      "esri/widgets/BasemapGallery", 
+      "esri/widgets/Expand", 
+      "esri/widgets/Search", 
+      "esri/widgets/Locate",
+      "esri/Graphic",
+      "esri/layers/GraphicsLayer"], 
+      function(esriConfig, Map, MapView, BasemapGallery, Expand, Search, Locate, Graphic, GraphicsLayer) { 
+      esriConfig.apiKey = "AAPK9c2d1c71e0c54fea8c41854d79e2bb2aRY4BboQbjkrg1gzIR4byHHAPQAnvnqnY0kwBUXQfbQGvJjGbV3it18SqxWbjCtON";
+      const map = new Map({
+        basemap: "arcgis-modern-antique" // Basemap layer service 
+      });
+
+      const view = new MapView({
+        map: map,
+        center: [12.335833, 45.4375], // Longitude, latitude
+        zoom: 11, // Zoom level
+        container: "viewDiv" // Div element
+      });
+
+      // Moves the default zoom widget to the rop right corner of the view's container
+      view.ui.move("zoom", "top-right");
+
+      let basemapGallery = new BasemapGallery({
+        view: view
+      });
+
+      basemapGalleryExpand = new Expand({
+        expandIcon: "basemap", //https://developers.arcgis.com/calcite-design-system/icons/
+        view: view,
+        content: basemapGallery
+      });
+      view.ui.add(basemapGalleryExpand, "top-right");
+
+      const searchWidget = new Search({
+        view: view
+      });
+      
+      // Adds the search widget
+      view.ui.add(searchWidget, {
+        position: "top-left",
+      });
+
+      let locateWidget = new Locate({
+        view: view,   // Attaches the Locate button to the view
+        /*graphic: new Graphic({
+          symbol: { type: "simple-marker" }  // overwrites the default symbol used for the
+          // graphic placed at the location of the user when found
+        })*/
+      });
+
+      view.ui.add(locateWidget, "top-left");
+
+      //adding the constructor for the graphicsLayer
+      const graphicsLayer = new GraphicsLayer();
+      map.add(graphicsLayer);
+
+      //defining the geometry of the point
+      const point = { //create a point
+        type: "point",
+        longitude: 12.338056, //long lat of Piazza San Marco - St. Mark's Square, famous piazza in Venice
+        latitude: 45.433889
+      };
+
+      //defining the marker style
+      const simpleMarkerSymbol = {
+        type: "simple-marker",
+        color: [255, 140, 50], //RGB style fill color
+        outline: {
+          color: [255, 255, 255], //RGB style outline color
+          width: 1
+        }
+      };
+
+      //creating the point
+      const pointGraphic = new Graphic({
+        geometry: point,
+        symbol: simpleMarkerSymbol
+      });
+
+      //adding the ponit to the graphicsLayer
+      graphicsLayer.add(pointGraphic);
+
+    });
+
+
+  </script>
+
+  <!-- CSS to make a full screen map -->
+  <style> html, body, #viewDiv {  padding: 0;  margin: 0;  height: 100%;  width: 100%;  } </style>
+  
+</head>
+<body>
+  <!-- the div to display the map -->
+  <div id="viewDiv"></div> 
+
+</body>
+</html>
