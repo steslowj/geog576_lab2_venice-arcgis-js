@@ -162,7 +162,7 @@
 
       //I will instead use an icon in my popup for the self hosted feature layer
       //icon from fontawesome
-      const treeCitySymbol = {
+      let treeCitySymbol = {
         type: "picture-marker", //autocasts as new PictureMarkerSymbol()
         url: "https://steslowj.github.io/geog576_lab2/tree-city-solid.svg",
         width: "12px",
@@ -172,7 +172,7 @@
       //creating popup for Sestieri layer
       const popupSestieri = {
         "title": "<b>Sestiere:</b> {sestiere}",
-        "content": "{treeCitySymbol} One of the major neighborhoods of Venice."
+        "content": treeCitySymbol + " One of the major neighborhoods of Venice."
       }
       //adding the constructor for the feature layer: Venice Siesteri
       const sestieri = new FeatureLayer({
