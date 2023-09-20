@@ -21,9 +21,13 @@
       "esri/widgets/Expand", 
       "esri/widgets/Search", 
       "esri/widgets/Locate",
+      //adding in the modules for graphics and graphic layer
       "esri/Graphic",
-      "esri/layers/GraphicsLayer"], 
-      function(esriConfig, Map, MapView, BasemapGallery, Expand, Search, Locate, Graphic, GraphicsLayer) { 
+      "esri/layers/GraphicsLayer",
+      //adding in the modules for the feature layers
+      "esri/layers/FeatureLayer"
+      ], 
+      function(esriConfig, Map, MapView, BasemapGallery, Expand, Search, Locate, Graphic, GraphicsLayer, FeatureLayer) { 
       esriConfig.apiKey = "AAPK9c2d1c71e0c54fea8c41854d79e2bb2aRY4BboQbjkrg1gzIR4byHHAPQAnvnqnY0kwBUXQfbQGvJjGbV3it18SqxWbjCtON";
       const map = new Map({
         basemap: "arcgis-modern-antique" // Basemap layer service 
@@ -199,8 +203,8 @@
       //defining polyline linesymbol style
       const simpleLineSymbol = {
         type: "simple-line", //autocasts as new SimpleLineSymbol()
-        style: "dash",
-        color: [50, 170, 230, 1], //RGB and alpha
+        style: "short-dash",
+        color: [0, 120, 180, 1], //RGB and alpha
         width: 3,
         join: "round",
         cap: "round"
@@ -218,6 +222,21 @@
       //adding the polygon to the graphicsLayer
       graphicsLayer.add(polylineGraphic);
 
+      //define a popup for OSMTouristAttractionsEurope
+      const popupTouristAttractions = {
+        "title": "TouristAttractions",
+        "content": "<b>Name:</b> {name}<br><b>Tourism:</b> {tourism}<br><b>Open Street Map ID:</b> {osm_id2}"
+      };
+
+      //adding the constructor for the feature layer
+      const OSMTouristAttractionsEurope = new FeatureLayer({
+        url: "https://services-eu1.arcgis.com/zci5bUiJ8olAal7N/arcgis/rest/services/OSM_Tourism_EU/FeatureServer",
+        //adding the popup information to the layer information
+        outFields: ["name","tourism","osm_id2"],
+        popupTemplate: popupTouristAttractions
+      });
+      
+      map.add(OSMTouristAttractionsEurope);
 
     });
 
