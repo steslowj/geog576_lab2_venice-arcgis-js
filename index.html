@@ -73,17 +73,6 @@
 
       view.ui.add(locateWidget, "top-left");
 
-      //defining polygon fillsymbol style for Sestieri layer
-      const sestieriFillSymbol = {
-        type: "simple-fill", //autocasts as new SimpleFillSymbol()
-        style: "solid",
-        color: [250, 230, 120, 0.5], //RGB and alpha
-        outline: {
-          color: [70, 70, 70],
-          width:2
-        }
-      };
-
       //layer renderer for Sestieri layer
       const sestieriRenderer = {
         type: "unique-value", //autocasts as new UniqueValueRenderer()
@@ -94,10 +83,10 @@
           symbol: {
             type: "simple-fill", //autocasts as new SimpleFillSymbol()
             style: "solid",
-            color: [31,120,180,0.5],
+            color: [31,120,180,0.3],
             outline: {
               color: [70,70,70],
-              width:2
+              width:1
             }
           }
         }, {
@@ -105,10 +94,10 @@
           symbol: {
             type: "simple-fill",
             style: "solid",
-            color: [178,223,138,0.5],
+            color: [178,223,138,0.3],
             outline: {
               color: [70,70,70],
-              width:2
+              width:1
             }
           }
         }, {
@@ -116,10 +105,10 @@
           symbol: {
             type: "simple-fill",
             style: "solid",
-            color: [51,160,44,0.5],
+            color: [51,160,44,0.3],
             outline: {
               color: [70,70,70],
-              width:2
+              width:1
             }
           }
         }, {
@@ -127,10 +116,10 @@
           symbol: {
             type: "simple-fill",
             style: "solid",
-            color: [251,154,153,0.5],
+            color: [251,154,153,0.3],
             outline: {
               color: [70,70,70],
-              width:2
+              width:1
             }
           }
         }, {
@@ -138,10 +127,10 @@
           symbol: {
             type: "simple-fill",
             style: "solid",
-            color: [227,26,28,0.5],
+            color: [227,26,28,0.3],
             outline: {
               color: [70,70,70],
-              width:2
+              width:1
             }
           }
         }, {
@@ -149,10 +138,10 @@
           symbol: {
             type: "simple-fill",
             style: "solid",
-            color: [253,191,111,0.5],
+            color: [253,191,111,0.3],
             outline: {
               color: [70,70,70],
-              width:2
+              width:1
             }
           }
         }, {
@@ -160,10 +149,10 @@
           symbol: {
             type: "simple-fill",
             style: "solid",
-            color: [250,230,120,0.5],
+            color: [250,230,120,0.3],
             outline: {
               color: [70,70,70],
-              width:2
+              width:1
             }
           }
         }],
@@ -202,7 +191,7 @@
         color: [200, 80, 30], //RGB style fill color for circle, square, diamond, triangle
         outline: {
           color: [255, 255, 255], //RGB style outline color, overrides full color for x or cross
-          width: 3
+          width: 2
         }
       };
 
@@ -252,7 +241,7 @@
         color: [255, 140, 50, 0.7], //RGB and alpha
         outline: {
           color: [255, 255, 255],
-          width:3
+          width:2
         }
       };
 
@@ -313,13 +302,28 @@
         type: "simple-line", //autocasts as new SimpleLineSymbol()
         style: "short-dash",
         color: [0, 120, 180, 1], //RGB and alpha
-        width: 3,
+        width: 10,
         join: "round",
         cap: "round"
       };
 
-      //creating the polyline
-      const polylineGraphic = new Graphic({
+      const simpleLineSymbolBackground = {
+        type: "simple-line",
+        style: "solid",
+        color: [255,255,255,1],
+        width:16,
+        join: "round",
+        cap: "round"
+      };
+
+      //creating a base polyline below the river polyline
+      const basePolylineGraphic = new Graphic({
+        geometry: polyline,
+        symbol: simpleLineSymbolBackground
+        //doesn't need popup attributes
+      })
+      //creating the river polyline above the base polyline
+      const riverPolylineGraphic = new Graphic({
         geometry: polyline,
         symbol: simpleLineSymbol,
         //adding popup properties
@@ -328,7 +332,8 @@
       });
       
       //adding the polyline to the graphicsLayer
-      graphicsLayer.add(polylineGraphic);
+      graphicsLayer.add(basePolylineGraphic);
+      graphicsLayer.add(riverPolylineGraphic);
       //adding the point to the graphicsLayer above the polyline
       graphicsLayer.add(pointGraphic);
 
