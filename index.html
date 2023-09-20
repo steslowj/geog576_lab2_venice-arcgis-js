@@ -73,6 +73,116 @@
 
       view.ui.add(locateWidget, "top-left");
 
+      //defining polygon fillsymbol style for Sestieri layer
+      const sestieriFillSymbol = {
+        type: "simple-fill", //autocasts as new SimpleFillSymbol()
+        style: "solid",
+        color: [250, 230, 120, 0.5], //RGB and alpha
+        outline: {
+          color: [70, 70, 70],
+          width:2
+        }
+      };
+
+      //layer renderer for Sestieri layer
+      const sestieriRenderer = {
+        type: "unique-value", //autocasts as new UniqueValueRenderer()
+        field: "sestiere",
+        defaultSymbol: {type: "simple-fill"}, //autocasts as new SimpleFillSymbol()
+        uniqueValueInfos: [{
+          value: "Giudecca",
+          symbol: {
+            type: "simple-fill", //autocasts as new SimpleFillSymbol()
+            style: "solid",
+            color: [31,120,180,0.5],
+            outline: {
+              color: [70,70,70],
+              width:2
+            }
+          }
+        }, {
+          value: "Dorsoduro",
+          symbol: {
+            type: "simple-fill",
+            style: "solid",
+            color: [178,223,138,0.5],
+            outline: {
+              color: [70,70,70],
+              width:2
+            }
+          }
+        }, {
+          value: "San Marco",
+          symbol: {
+            type: "simple-fill",
+            style: "solid",
+            color: [51,160,44,0.5],
+            outline: {
+              color: [70,70,70],
+              width:2
+            }
+          }
+        }, {
+          value: "San Polo",
+          symbol: {
+            type: "simple-fill",
+            style: "solid",
+            color: [251,154,153,0.5],
+            outline: {
+              color: [70,70,70],
+              width:2
+            }
+          }
+        }, {
+          value: "Santa Croce",
+          symbol: {
+            type: "simple-fill",
+            style: "solid",
+            color: [227,26,28,0.5],
+            outline: {
+              color: [70,70,70],
+              width:2
+            }
+          }
+        }, {
+          value: "Cannaregio",
+          symbol: {
+            type: "simple-fill",
+            style: "solid",
+            color: [253,191,111,0.5],
+            outline: {
+              color: [70,70,70],
+              width:2
+            }
+          }
+        }, {
+          value: "Castello",
+          symbol: {
+            type: "simple-fill",
+            style: "solid",
+            color: [250,230,120,0.5],
+            outline: {
+              color: [70,70,70],
+              width:2
+            }
+          }
+        }],
+      }
+
+      //creating popup for Sestieri layer
+      const popupSestieri = {
+        "title": "<b>Sestiere:</b> {sestiere}"
+      }
+      //adding the constructor for the feature layer: Venice Siesteri
+      const sestieri = new FeatureLayer({
+        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Venice_Sestieri/FeatureServer",
+        outFields: ["sestiere"],
+        popupTemplate: popupSestieri,
+        renderer: sestieriRenderer
+      });
+
+      map.add(sestieri);
+
       //adding the constructor for the graphicsLayer
       const graphicsLayer = new GraphicsLayer();
       map.add(graphicsLayer);
@@ -122,8 +232,6 @@
         attributes: pointAttributes,
         popupTemplate: popupTemplate
       });
-
-
 
       //defining the geometry of the polygon
       const polygon = {
@@ -243,18 +351,7 @@
       map.add(OSMTouristAttractionsEurope);
 
 
-      const popupSestieri = {
-        "title": "<b>Sestiere:</b> {sestiere}"
-      }
 
-      //adding the constructor for the feature layer: Venice Siesteri
-      const sestieri = new FeatureLayer({
-        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Venice_Sestieri/FeatureServer",
-        outFields: ["sestiere"],
-        popupTemplate: popupSestieri
-      });
-
-      map.add(sestieri);
 
     });
 
