@@ -232,7 +232,7 @@
       const OSMTouristAttractionsEurope = new FeatureLayer({
         url: "https://services-eu1.arcgis.com/zci5bUiJ8olAal7N/arcgis/rest/services/OSM_Tourism_EU/FeatureServer",
         //definition expression to filter out excess data - this feature layer is huge
-        definitionExpression: "tourism NOT IN ('hotel', 'guest_house', 'apartment', 'chalet', 'hostel', 'motel') AND name NOT NULL",
+        definitionExpression: "tourism NOT IN ('hotel', 'guest_house', 'apartment', 'chalet', 'hostel', 'motel')",
         //adding the popup information to the layer information
         outFields: ["name","tourism","osm_id2"],
         popupTemplate: popupTouristAttractions
