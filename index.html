@@ -228,7 +228,7 @@
         "content": "<b>Tourism:</b> {tourism}<br><b>Open Street Map ID:</b> {osm_id2}"
       };
 
-      //adding the constructor for the feature layer
+      //adding the constructor for the feature layer: Open Street Map Tourist Attractions Europe
       const OSMTouristAttractionsEurope = new FeatureLayer({
         url: "https://services-eu1.arcgis.com/zci5bUiJ8olAal7N/arcgis/rest/services/OSM_Tourism_EU/FeatureServer",
         //definition expression to filter out excess data - this feature layer is huge
@@ -239,6 +239,19 @@
       });
       
       map.add(OSMTouristAttractionsEurope);
+
+
+      const popupSiesteri = {
+        "title": "<b>Siestere:</b> {neighborhood}"
+      }
+
+      //adding the constructor for the feature layer: Venice Siesteri
+      const siesteri = new FeatureLayer({
+        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Venice_Sestieri/FeatureServer",
+        outFields: [neighborhood]
+      });
+
+      map.add(siesteri);
 
     });
 
