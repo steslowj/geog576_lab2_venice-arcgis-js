@@ -80,15 +80,15 @@
       //defining the geometry of the point
       const point = { //create a point
         type: "point",
-        longitude: 12.328056, //long lat of Gallerie dell'Accademia
-        latitude: 45.431389
+        longitude: 12.33408239617547, //long lat of Ca' Loredan
+        latitude: 45.43655912567695
       };
 
       //defining the marker style
       const simpleMarkerSymbol = {
         type: "simple-marker",
         style: "diamond",
-        color: [255, 140, 50], //RGB style fill color for circle, square, diamond, triangle
+        color: [200, 80, 30], //RGB style fill color for circle, square, diamond, triangle
         outline: {
           color: [255, 255, 255], //RGB style outline color, overrides full color for x or cross
           width: 1
@@ -101,8 +101,8 @@
         content: "{Description}"
       };
       const pointAttributes = {
-        Name: "Gallerie dell'Accademia",
-        Description: "Museum gallery of pre-19th-century art"
+        Name: "Ca' Loredan",
+        Description: "City Hall of Venice"
       };
       const polygonAttributes = {
         Name: "Piazza San Marco",
@@ -232,7 +232,7 @@
       const OSMTouristAttractionsEurope = new FeatureLayer({
         url: "https://services-eu1.arcgis.com/zci5bUiJ8olAal7N/arcgis/rest/services/OSM_Tourism_EU/FeatureServer",
         //definition expression to filter out excess data - this feature layer is huge
-        definitionExpression: "tourism IN ('information', 'artwork', 'viewpoint', 'picnic_site', 'attraction', 'museum', 'gallery', 'theme_park')",
+        definitionExpression: "tourism NOT IN ('hotel', 'guest_house', 'apartment', 'chalet', 'hostel', 'motel') AND name NOT NULL",
         //adding the popup information to the layer information
         outFields: ["name","tourism","osm_id2"],
         popupTemplate: popupTouristAttractions
