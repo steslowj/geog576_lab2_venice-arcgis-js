@@ -358,6 +358,7 @@
       
       map.add(OSMTouristAttractionsEurope);
 
+      //constructor to make renderer for venice points, using unique value for the 2 types of points
       const coffeeGardenRenderer = {
         type: "unique-value", //autocasts as new UniqueValueRenderer()
         field: "type",
@@ -381,13 +382,35 @@
         }]
       }
 
+      //const to make labels for venice points
+      const venicePointLabels = {
+        symbol: {
+          type: "text",
+          color: [70,70,70,1],
+          haloColor: [250,248,240,1],
+          haloSize: "2px",
+          font: {
+            size: "12px",
+            family: "Noto Sans",
+            style: "italic",
+            weight: "normal"
+          }
+        },
+        labelPlacement: "above-center",
+        labelExpressionInfo: {
+          expression: "$feature.name"
+        }
+      };
+
       //adding the constructor for the feature layer: Point features for Venice
       const venicePoints = new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Venice_Points/FeatureServer",
         outFields: ["name","type"],
-        renderer: coffeeGardenRenderer
+        renderer: coffeeGardenRenderer,
+        labelingInfo: [venicePointLabels]
       });
 
+      map.add(venicePoints);
 
     });
 
