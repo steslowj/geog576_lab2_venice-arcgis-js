@@ -32,7 +32,7 @@
       const view = new MapView({
         map: map,
         center: [12.335833, 45.4375], // Longitude, latitude
-        zoom: 11, // Zoom level
+        zoom: 15, // Zoom level
         container: "viewDiv" // Div element
       });
 
@@ -76,28 +76,148 @@
       //defining the geometry of the point
       const point = { //create a point
         type: "point",
-        longitude: 12.338056, //long lat of Piazza San Marco - St. Mark's Square, famous piazza in Venice
-        latitude: 45.433889
+        longitude: 12.328056, //long lat of Gallerie dell'Accademia
+        latitude: 45.431389
       };
 
       //defining the marker style
       const simpleMarkerSymbol = {
         type: "simple-marker",
-        color: [255, 140, 50], //RGB style fill color
+        style: "diamond",
+        color: [255, 140, 50], //RGB style fill color for circle, square, diamond, triangle
         outline: {
-          color: [255, 255, 255], //RGB style outline color
+          color: [255, 255, 255], //RGB style outline color, overrides full color for x or cross
           width: 1
         }
+      };
+
+      //defining popup properties
+      const popupTemplate = {
+        title: "{Name}",
+        content: "{Description}"
+      };
+      const pointAttributes = {
+        Name: "Gallerie dell'Accademia",
+        Description: "Museum gallery of pre-19th-century art"
+      };
+      const polygonAttributes = {
+        Name: "Piazza San Marco",
+        Description: "Famous plaza in Venice, <i>St. Mark's Square</i>"
+      };
+      const polylineAttributes = {
+        Name: "Canal Grande",
+        Description: "The largest canal that runs through Venice"
       };
 
       //creating the point
       const pointGraphic = new Graphic({
         geometry: point,
-        symbol: simpleMarkerSymbol
+        symbol: simpleMarkerSymbol,
+        //adding popup properties
+        attributes: pointAttributes,
+        popupTemplate: popupTemplate
       });
 
-      //adding the ponit to the graphicsLayer
+      //adding the point to the graphicsLayer
       graphicsLayer.add(pointGraphic);
+
+      //defining the geometry of the polygon
+      const polygon = {
+        type: "polygon",
+        rings: [
+          [12.337438537324637, 45.43344937547015],
+          [12.337174992625126, 45.43392884528794],
+          [12.339111558271018, 45.43474667442182],
+          [12.33944147713664, 45.43400419018201],
+          [12.337438537324637, 45.43344937547015]
+        ]
+      };
+
+      //defining polygon fillsymbol style
+      const simpleFillSymbol = {
+        type: "simple-fill", //autocasts as new SimpleFillSymbol()
+        style: "solid",
+        color: [255, 140, 50, 0.7], //RGB and alpha
+        outline: {
+          color: [255, 255, 255],
+          width:1
+        }
+      };
+
+      //creating the polygon
+      const polygonGraphic = new Graphic({
+        geometry: polygon,
+        symbol: simpleFillSymbol,
+        //adding popup properties
+        attributes: polygonAttributes,
+        popupTemplate: popupTemplate
+      });
+      
+      //adding the polygon to the graphicsLayer
+      graphicsLayer.add(polygonGraphic);
+
+      //defining the geometry of the polyline
+      const polyline = {
+        type: "polyline",
+        paths: [ //exported from drawn KML file
+          [12.3154999776372,45.44214708361256],
+          [12.31709956499444,45.44147371080002],
+          [12.31817875988817,45.44015536697969],
+          [12.31927812611513,45.43896319198203],
+          [12.3197977472845,45.43889305560219],
+          [12.32059736402094,45.43931375419435],
+          [12.3221971114666,45.44088427844],
+          [12.3241158646936,45.44173976406235],
+          [12.32635466644583,45.44239892942872],
+          [12.32817370408165,45.44239872434167],
+          [12.33011267336494,45.44220216659739],
+          [12.33095181177356,45.44187925094413],
+          [12.33289067294561,45.44089737596484],
+          [12.33409003670834,45.4403362372096],
+          [12.33520919798987,45.43984514999367],
+          [12.33590828823502,45.43939619004415],
+          [12.3361882356878,45.43889121539124],
+          [12.33622799026219,45.43842843919096],
+          [12.33580805193879,45.43792359588265],
+          [12.33480860320738,45.43727856931024],
+          [12.3340089081046,45.4369280921553],
+          [12.3303708655673,45.43591881205823],
+          [12.32849192295376,45.43534401344708],
+          [12.3274031896154,45.43479701422909],
+          [12.32716380750298,45.43451974296001],
+          [12.32715260596746,45.43418386381058],
+          [12.3277088052206,45.43250047161071],
+          [12.32837581406833,45.43192344842493],
+          [12.32939854295715,45.43155583123726],
+          [12.33045759688676,45.43130834682106],
+          [12.3315415046531,45.43121366768082],
+          [12.33460845423624,45.43140246362233],
+          [12.33755392367615,45.43172348917508]
+        ]
+      };
+
+      //defining polyline linesymbol style
+      const simpleLineSymbol = {
+        type: "simple-line", //autocasts as new SimpleLineSymbol()
+        style: "dash",
+        color: [50, 170, 230, 1], //RGB and alpha
+        width: 3,
+        join: "round",
+        cap: "round"
+      };
+
+      //creating the polyline
+      const polylineGraphic = new Graphic({
+        geometry: polyline,
+        symbol: simpleLineSymbol,
+        //adding popup properties
+        attributes: polylineAttributes,
+        popupTemplate: popupTemplate
+      });
+      
+      //adding the polygon to the graphicsLayer
+      graphicsLayer.add(polylineGraphic);
+
 
     });
 
