@@ -88,10 +88,11 @@
       const simpleMarkerSymbol = {
         type: "simple-marker",
         style: "diamond",
+        size: 18,
         color: [200, 80, 30], //RGB style fill color for circle, square, diamond, triangle
         outline: {
           color: [255, 255, 255], //RGB style outline color, overrides full color for x or cross
-          width: 1
+          width: 2
         }
       };
 
@@ -122,8 +123,7 @@
         popupTemplate: popupTemplate
       });
 
-      //adding the point to the graphicsLayer
-      graphicsLayer.add(pointGraphic);
+
 
       //defining the geometry of the polygon
       const polygon = {
@@ -219,8 +219,10 @@
         popupTemplate: popupTemplate
       });
       
-      //adding the polygon to the graphicsLayer
+      //adding the polyline to the graphicsLayer
       graphicsLayer.add(polylineGraphic);
+      //adding the point to the graphicsLayer above the polyline
+      graphicsLayer.add(pointGraphic);
 
       //define a popup for OSMTouristAttractionsEurope
       const popupTouristAttractions = {
@@ -248,7 +250,8 @@
       //adding the constructor for the feature layer: Venice Siesteri
       const siesteri = new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Venice_Sestieri/FeatureServer",
-        outFields: [neighborhood]
+        outFields: ["neighborhood"],
+        popupTemplate: popupSiesteri
       });
 
       map.add(siesteri);
