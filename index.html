@@ -73,11 +73,13 @@
 
       view.ui.add(locateWidget, "top-left");
 
-      //layer renderer for Sestieri layer
+      //layer renderer for Sestieri layer based on unique sestiere name
+      //the lab instead uses a renderer for an icon for a point layer
       const sestieriRenderer = {
         type: "unique-value", //autocasts as new UniqueValueRenderer()
         field: "sestiere",
         defaultSymbol: {type: "simple-fill"}, //autocasts as new SimpleFillSymbol()
+        //create 7 unique symbols based on sestiere name
         uniqueValueInfos: [{
           value: "Giudecca",
           symbol: {
@@ -158,9 +160,19 @@
         }],
       }
 
+      //I will instead use an icon in my popup for the self hosted feature layer
+      //icon from fontawesome
+      const treeCityStymbol = {
+        type: "picture-marker", //autocasts as new PictureMarkerSymbol()
+        url: "https://steslowj.github.io/geog576_lab2/tree-city-solid.svg",
+        width: "12px",
+        height: "12px"
+      }
+
       //creating popup for Sestieri layer
       const popupSestieri = {
-        "title": "<b>Sestiere:</b> {sestiere}"
+        "title": "<b>Sestiere:</b> {sestiere}",
+        "content": "{treeCitySymbol} One of the major neighborhoods of Venice."
       }
       //adding the constructor for the feature layer: Venice Siesteri
       const sestieri = new FeatureLayer({
