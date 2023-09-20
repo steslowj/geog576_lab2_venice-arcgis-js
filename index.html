@@ -224,13 +224,15 @@
 
       //define a popup for OSMTouristAttractionsEurope
       const popupTouristAttractions = {
-        "title": "TouristAttractions",
-        "content": "<b>Name:</b> {name}<br><b>Tourism:</b> {tourism}<br><b>Open Street Map ID:</b> {osm_id2}"
+        "title": "<b>Name:</b> {name}",
+        "content": "<b>Tourism:</b> {tourism}<br><b>Open Street Map ID:</b> {osm_id2}"
       };
 
       //adding the constructor for the feature layer
       const OSMTouristAttractionsEurope = new FeatureLayer({
         url: "https://services-eu1.arcgis.com/zci5bUiJ8olAal7N/arcgis/rest/services/OSM_Tourism_EU/FeatureServer",
+        //definition expression to filter out excess data - this feature layer is huge
+        definitionExpression: "tourism IN ('information', 'artwork', 'viewpoint', 'picnic_site', 'attraction', 'museum', 'gallery', 'theme_park')",
         //adding the popup information to the layer information
         outFields: ["name","tourism","osm_id2"],
         popupTemplate: popupTouristAttractions
