@@ -160,8 +160,8 @@
         }],
       }
 
-      //I will instead use an icon in my popup for the self hosted feature layer
-      //icon from fontawesome
+      //If I were to use an icon for a point layer I would need this code for PictureMarkerSymbol
+      //Doesn't work to add to popupcontent. Icon from fontawesome.
       let treeCitySymbol = {
         type: "picture-marker", //autocasts as new PictureMarkerSymbol()
         url: "https://steslowj.github.io/geog576_lab2/tree-city-solid.svg",
@@ -172,7 +172,8 @@
       //creating popup for Sestieri layer
       const popupSestieri = {
         "title": "<b>Sestiere:</b> {sestiere}",
-        "content": {treeCitySymbol} + " One of the major neighborhoods of Venice."
+        "content": "<img src='https://steslowj.github.io/geog576_lab2/tree-city-solid.svg'" 
+        + "style='width:12px;height:12px;'> One of the major neighborhoods of Venice."
       }
       //adding the constructor for the feature layer: Venice Siesteri
       const sestieri = new FeatureLayer({
