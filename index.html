@@ -74,7 +74,6 @@
       view.ui.add(locateWidget, "top-left");
 
       //layer renderer for Sestieri layer based on unique sestiere name
-      //the lab instead uses a renderer for an icon for a point layer
       const sestieriRenderer = {
         type: "unique-value", //autocasts as new UniqueValueRenderer()
         field: "sestiere",
@@ -158,15 +157,6 @@
             }
           }
         }],
-      }
-
-      //If I were to use an icon for a point layer I would need this code for PictureMarkerSymbol
-      //Doesn't work to add to popupcontent. Icon from fontawesome.
-      let treeCitySymbol = {
-        type: "picture-marker", //autocasts as new PictureMarkerSymbol()
-        url: "https://steslowj.github.io/geog576_lab2/tree-city-solid.svg",
-        width: "12px",
-        height: "12px"
       }
 
       //creating popup for Sestieri layer
@@ -315,7 +305,7 @@
         type: "simple-line", //autocasts as new SimpleLineSymbol()
         style: "short-dash",
         color: [0, 120, 180, 1], //RGB and alpha
-        width: 8,
+        width: 6,
         join: "round",
         cap: "round"
       };
@@ -324,7 +314,7 @@
         type: "simple-line",
         style: "solid",
         color: [255,255,255,1],
-        width:12,
+        width:8,
         join: "round",
         cap: "round"
       };
@@ -368,7 +358,35 @@
       
       map.add(OSMTouristAttractionsEurope);
 
+      const coffeeGardenRenderer = {
+        type: "unique-value", //autocasts as new UniqueValueRenderer()
+        field: "type",
+        defaultSymbol: {type: "simple-fill"},
+        uniqueValueInfos: [{
+          value: "gardens",
+          symbol: {
+            type: "picture-marker",
+            url: "https://steslowj.github.io/geog576_lab2/seedling-solid.svg",
+            width: "12px",
+            height: "12px"
+          }
+        }, {
+          value: "coffee",
+          symbol: {
+            type: "picture-marker",
+            url: "https://steslowj.github.io/geog576_lab2/seedling-solid.svg",
+            width: "12px",
+            height: "12px"
+          }
+        }]
+      }
 
+      //adding the constructor for the feature layer: Point features for Venice
+      const venicePoints = new FeatureLayer({
+        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Venice_Points/FeatureServer",
+        outFields: ["name","type"],
+        renderer: coffeeGardenRenderer
+      });
 
 
     });
