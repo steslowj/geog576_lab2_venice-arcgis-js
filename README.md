@@ -6,7 +6,7 @@ This project is a web map using ArcGIS Online JavaScript code to create a web-ma
 My map is a look at Venice, Italy, with:
 <ul>
   <li>Basemap & basemap gallery provided by ESRI</li>
-  <li>Polygon features for Sestieri (neighborhoods) drawn by me (rough estimate using Wikipedia and existing land data), using ArcGIS Online REST URL</li>
-  <li>Point features for tourist attractions created and styled by <a href = "https://uw-mad.maps.arcgis.com/home/item.html?id=f3dcc26dd868456da288baca83b8a2cd">Open Street Maps</a>, using ArcGIS Online REST URL.</li>
-  <li>Point features for coffee shops and gardens styled by <a href="https://uw-mad.maps.arcgis.com/home/item.html?id=9824340cdac14822b38725e4babc7b55">me</a>, based off Google Search results, also using REST.</li>
+  <li>Polygon features for Sestieri (neighborhoods) drawn by <a href="https://uw-mad.maps.arcgis.com/home/item.html?id=f1d2ccbb9de14539b7913bd75851d9e7">me</a> (rough estimate using Wikipedia and existing land data), using ArcGIS Online REST URL.</li>
+  <li>Point features for tourist attractions created and styled by <a href = "https://uw-mad.maps.arcgis.com/home/item.html?id=f3dcc26dd868456da288baca83b8a2cd">Open Street Maps</a>.</li>
+  <li>Point features for coffee shops and gardens styled by <a href="https://uw-mad.maps.arcgis.com/home/item.html?id=9824340cdac14822b38725e4babc7b55">me</a>, based off Google Search results.</li>
 </ul>
