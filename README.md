@@ -11,8 +11,5 @@ My map is a look at Venice, Italy, with:
   <li>Point features for coffee shops and gardens styled by <a href="https://uw-mad.maps.arcgis.com/home/item.html?id=9824340cdac14822b38725e4babc7b55">me</a>, based off Google Search results.</li>
 </ul>
 
-### Project Website
-This project is hosted live on github pages: https://steslowj.github.io/geog576_lab2/
-
 ### Website Screenshot
 ![](geog576_lab2_img.png)
